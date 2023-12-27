@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  django:
+    image: django
+    restart: always
+
+  backend:
+    build: ./my_page
+    restart: always
