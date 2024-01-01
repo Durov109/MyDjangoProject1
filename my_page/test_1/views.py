@@ -6,7 +6,7 @@ from test_1.models import Worker
 # Create your views here.
 
 
-def index_page(request):
+def primery(request):
     # Вывести все данные из таблицы
     all_workers = Worker.objects.all()
     print(all_workers)
@@ -33,4 +33,9 @@ def index_page(request):
 
 
 def hello_world(request):
-    return render(request, 'test_index.html')
+    return render(request, 'test_index.html', context={'data': 5})
+
+
+def views_all_worker(request):
+    all_workers = Worker.objects.all()
+    return render(request, 'views_all_worker.html', {'data': all_workers})

@@ -9,4 +9,4 @@ class Worker(models.Model):
     salary = models.IntegerField(default=0)
 
     def __str__(self) -> str:
-        return f"{self.name} {self.surname} зарплата: {self.salary}"
+        return f"{self.name} {self.surname} {self.salary}"

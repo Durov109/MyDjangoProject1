@@ -1,0 +1,36 @@
+<DOCTYPE html>
+
+    <html lang="en">
+
+
+    <body>
+        <h1>
+            Список сотрудников
+        </h1>
+
+        <br>
+        {%for i in data%}
+        {{forloop.counter}}
+        <br>
+        Surname: {{i.surname}}
+        <br>
+        Name: {{i.name}}
+        <br>
+        Salary:
+        
+        {% if i.salary < 30000%}
+        <b style='color:blue;'> {{i.salary}} </b>
+
+        {% elif i.salary > 30000 and i.salary < 60000%}
+        <b style='color:green;'> {{i.salary}} </b>
+
+        {% else %}
+        <b style='color:red;'> {{i.salary}} </b>
+
+        {% endif %}
+        <br>
+        <br>
+        {% endfor %}
+    </body>
+
+    </html>
