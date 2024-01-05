@@ -13,6 +13,8 @@ urlpatterns = [
     # path('streles/', views_horoscope.Sagittarius),
     # path('teles/', views_horoscope.Taurus),
     # path('ryby/', views_horoscope.Pisces),
+    # конвертируемый роут (int)
+    path('<int:sign_zodiac>/', views_horoscope.get_info_number),
     # динамический роут
-    path('<sign_zodiac>/', views_horoscope.get_info_about_sign_zodiac),
+    path('<str:sign_zodiac>/', views_horoscope.get_info_about_sign_zodiac, name='horoscope-name'),
 ]
