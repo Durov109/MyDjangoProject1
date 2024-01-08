@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponsePermanentRedirect
+from django.urls import reverse
 # Create your views here.
 
 
@@ -39,11 +39,21 @@ def tuesday(request):
              '''
     return HttpResponse(result)
 
+def get_info_day(request, day):
+    if day == 'monday':
+        return monday(request)
+    elif day == 'tuesday':
+        return tuesday(request)
+    
+
 
 def number_day(request, num_day: int):
-    day_dict = {1: 'monday', 2: 'tuesday', 3: 'wednesday',
-                4: 'thursday', 5: 'friday', 6: 'saturday', 7: 'sunday'}
-    if num_day in (1, 2, 3, 4, 5, 6, 7):
-        return HttpResponseRedirect(f"{day_dict[num_day]}")
+    day_dict = {1: 'monday/', 2: 'tuesday/', 3: 'wednesday/',
+                4: 'thursday/', 5: 'friday/', 6: 'saturday/', 7: 'sunday/'}
+    
+    if day_dict.get(num_day, None):
+        get_day = day_dict[num_day]
+        redirect_url = reverse('day-week', args=(get_day, ))
+        return HttpResponsePermanentRedirect(redirect_url)
     else:
         return HttpResponseNotFound(f"Неверный номер дня недели - {num_day}")

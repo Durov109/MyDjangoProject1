@@ -1,31 +1,26 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponsePermanentRedirect
+from django.urls import reverse
 
 # Create your views here.
 
 
-def get_rectangle_area(request, width, lenght):
+def rectangle(request, width, lenght):
     result = width * lenght
     return HttpResponse(f"Площадь прямоугольника размером {width}x{lenght} равна {result}")
 
 
-def get_square_area(request, width):
+def square(request, width):
     result = width * 2
     return HttpResponse(f"Площадь прямоугольника размером {width}x{width} равна {result}")
 
 
-def get_circle_area(request, radius):
+def circle(request, radius):
     result = 3.14 * radius**2
     return HttpResponse(f"Площадь круга равна {result}")
 
 
 def redirect_to_figure(request, **kwargs):
-    path = request.path
-    figure = path.split('/')[2]
-    match figure:
-        case 'get_rectangle_area':
-            return HttpResponseRedirect(f"/calculate_geometry/rectangle/{kwargs['width']}/{kwargs['lenght']}")
-        case 'get_square_area':
-            return HttpResponseRedirect(f"/calculate_geometry/square/{kwargs['width']}")
-        case 'get_circle_area':
-            return HttpResponseRedirect(f"/calculate_geometry/circle/{kwargs['radius']}")
+    for i in ('get_rectangle_area', 'get_square_area', 'get_circle_area'):
+        if i in request.path:
+            return HttpResponsePermanentRedirect(reverse(i.strip('get_'), args=kwargs.values()))

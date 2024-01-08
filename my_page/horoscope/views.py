@@ -38,6 +38,20 @@ from django.urls import reverse
 # def Pisces(request):
 #     return HttpResponse("♓ Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта).")
 
+def index(request):
+    zodiacs = list(zodiac_number)
+    li_elements = ""
+    for sing in zodiacs:
+        redirect_path = reverse('horoscope-name', args=(sing, ))
+        li_elements += f"<li> <a href='{redirect_path}'>{sing.title()} </a> </li>"
+
+    tempalate = f"""
+    <ol>
+        {li_elements}
+    </ol>
+    """
+    return HttpResponse(tempalate)
+
 zodiac_number = {
         'leo':"♌ Лев - пятый знак зодиака, солнце (с 23 июля по 21 августа).",
         'cancer':"♋ Рак - четвёртый знак зодиака, Луна (с 22 июня по 22 июля).",
